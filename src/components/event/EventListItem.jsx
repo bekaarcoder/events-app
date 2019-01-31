@@ -3,7 +3,7 @@ import EventListAttendee from "./EventListAttendee";
 
 class EventListItem extends Component {
   render() {
-    const { event, onEventEdit } = this.props;
+    const { event, onEventEdit, onEventDelete } = this.props;
     return (
       <div className="card mt-4" style={cardStyle}>
         <div className="card-header">
@@ -41,6 +41,12 @@ class EventListItem extends Component {
             <div className="text-right">
               <button className="btn btn-info" onClick={onEventEdit(event)}>
                 View Event
+              </button>
+              <button
+                className="btn btn-danger ml-3"
+                onClick={onEventDelete(event.id)}
+              >
+                Delete
               </button>
             </div>
           </li>

@@ -95,6 +95,15 @@ class EventDashboard extends Component {
     });
   };
 
+  handleDeleteEvent = eventId => () => {
+    const updatedEvents = this.state.events.filter(
+      event => event.id !== eventId
+    );
+    this.setState({
+      events: updatedEvents
+    });
+  };
+
   createEvent = newEvent => {
     newEvent.id = cuid();
     newEvent.description =
@@ -116,6 +125,7 @@ class EventDashboard extends Component {
             <EventList
               onEventEdit={this.handleSelectedEvent}
               events={this.state.events}
+              onEventDelete={this.handleDeleteEvent}
             />
           </div>
           <div className="col-md-4">
