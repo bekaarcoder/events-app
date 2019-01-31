@@ -1,19 +1,46 @@
 import React, { Component } from "react";
 
+const emptyEvent = {
+  title: "",
+  date: "",
+  city: "",
+  venue: "",
+  hostedBy: ""
+};
+
 class EventForm extends Component {
   state = {
-    event: {
-      title: "",
-      date: "",
-      city: "",
-      venue: "",
-      host: ""
-    }
+    event: emptyEvent,
+    selectedEvent: null
   };
+
+  componentDidMount() {
+    if (this.props.selectedEvent !== null) {
+      this.setState({
+        event: this.props.selectedEvent
+      });
+    }
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log(nextProps.selectedEvent);
+    console.log(prevState.selectedEvent);
+    if (prevState.selectedEvent !== nextProps.selectedEvent) {
+      return {
+        event: nextProps.selectedEvent || emptyEvent,
+        selectedEvent: nextProps.selectedEvent
+      };
+    }
+    return null;
+  }
 
   formSubmit = e => {
     e.preventDefault();
-    this.props.createEvent(this.state.event);
+    if (this.state.event.id) {
+      this.props.updateEvent(this.state.event);
+    } else {
+      this.props.createEvent(this.state.event);
+    }
   };
 
   onChange = e => {
@@ -81,8 +108,8 @@ class EventForm extends Component {
                 type="text"
                 placeholder="Name of the person hosting"
                 className="form-control"
-                name="host"
-                value={event.host}
+                name="hostedBy"
+                value={event.hostedBy}
                 onChange={this.onChange}
               />
             </div>

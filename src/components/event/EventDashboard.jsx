@@ -7,7 +7,7 @@ const events = [
   {
     id: 1,
     title: "Trip to Amsterdam",
-    date: "2019-01-17T11:00:00+00:00",
+    date: "2019-01-17",
     category: "culture",
     description:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti consequatur maiores, sed officia vel sint, similique explicabo dolore mollitia beatae accusamus harum voluptatum veritatis debitis, velit suscipit fugit. Similique, accusamus.",
@@ -31,7 +31,7 @@ const events = [
   {
     id: 2,
     title: "Trip to Australia",
-    date: "2019-01-17T11:00:00+00:00",
+    date: "2019-01-17",
     category: "culture",
     description:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti consequatur maiores, sed officia vel sint, similique explicabo dolore mollitia beatae accusamus harum voluptatum veritatis debitis, velit suscipit fugit. Similique, accusamus.",
@@ -57,12 +57,14 @@ const events = [
 class EventDashboard extends Component {
   state = {
     events: events,
-    isOpen: false
+    isOpen: false,
+    selectedEvent: null
   };
 
   handleFormOpen = () => {
     this.setState({
-      isOpen: true
+      isOpen: true,
+      selectedEvent: null
     });
   };
 
@@ -72,10 +74,32 @@ class EventDashboard extends Component {
     });
   };
 
+  handleSelectedEvent = eventSelected => () => {
+    this.setState({
+      isOpen: true,
+      selectedEvent: eventSelected
+    });
+  };
+
+  handleUpdateEvent = updatedEvent => {
+    this.setState({
+      events: this.state.events.map(event => {
+        if (event.id === updatedEvent.id) {
+          return Object.assign({}, updatedEvent);
+        } else {
+          return event;
+        }
+      }),
+      isOpen: false,
+      selectedEvent: null
+    });
+  };
+
   createEvent = newEvent => {
     newEvent.id = cuid();
     newEvent.description =
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sint deserunt, voluptas modi dolor vitae omnis consectetur sed tempora illo qui non maiores delectus expedita. Molestiae aperiam soluta minus magni";
+    newEvent.hostPhotoUrl = "http://unsplash.it/50/50?gravity=center";
     const updatedEvent = [...this.state.events, newEvent];
     this.setState({
       events: updatedEvent,
@@ -84,12 +108,15 @@ class EventDashboard extends Component {
   };
 
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, selectedEvent } = this.state;
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-8">
-            <EventList events={this.state.events} />
+            <EventList
+              onEventEdit={this.handleSelectedEvent}
+              events={this.state.events}
+            />
           </div>
           <div className="col-md-4">
             <button
@@ -102,6 +129,8 @@ class EventDashboard extends Component {
               <EventForm
                 handleCancel={this.handleCancel}
                 createEvent={this.createEvent}
+                selectedEvent={selectedEvent}
+                updateEvent={this.handleUpdateEvent}
               />
             )}
           </div>

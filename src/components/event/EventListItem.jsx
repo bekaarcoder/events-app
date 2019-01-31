@@ -3,7 +3,7 @@ import EventListAttendee from "./EventListAttendee";
 
 class EventListItem extends Component {
   render() {
-    const { event } = this.props;
+    const { event, onEventEdit } = this.props;
     return (
       <div className="card mt-4" style={cardStyle}>
         <div className="card-header">
@@ -39,7 +39,9 @@ class EventListItem extends Component {
           <li className="list-group-item">
             <p>{event.description}</p>
             <div className="text-right">
-              <button className="btn btn-info">View Event</button>
+              <button className="btn btn-info" onClick={onEventEdit(event)}>
+                View Event
+              </button>
             </div>
           </li>
         </ul>
