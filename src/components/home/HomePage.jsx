@@ -17,6 +17,7 @@ const HomePage = props => {
             onClick={() => props.history.push("/events")}
           >
             Get Started
+            <i className="fas fa-arrow-right ml-2" />
           </button>
         </div>
       </div>

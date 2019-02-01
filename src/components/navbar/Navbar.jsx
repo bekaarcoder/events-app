@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
 
+import SignedIn from "./SignedIn";
+import SignedOut from "./SignedOut";
+
 class Navbar extends Component {
+  state = {
+    authenticated: false
+  };
+
   render() {
+    const { authenticated } = this.state;
     return (
       <nav
         className="navbar fixed-top navbar-expand-lg navbar-dark"
@@ -35,22 +43,11 @@ class Navbar extends Component {
                 Events
               </NavLink>
             </li>
-          </ul>
-          <ul className="navbar-nav my-2 my-lg-0">
             <li className="nav-item">
-              <button className="btn btn-success mr-2">Create Event</button>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Login
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Sign Out
-              </a>
+              <button className="btn btn-success ml-2">Create Event</button>
             </li>
           </ul>
+          {authenticated ? <SignedIn /> : <SignedOut />}
         </div>
       </nav>
     );
