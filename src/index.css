@@ -8,6 +8,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
+.settingsNav .list-group-item.active {
+  background-color: #eeeeee !important;
+  font-weight: bold !important;
+  color: black !important;
+  border-color: rgba(0, 0, 0, 0.125) !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

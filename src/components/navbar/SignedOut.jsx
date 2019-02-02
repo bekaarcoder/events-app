@@ -1,10 +1,10 @@
 import React from "react";
 
-const SignedOut = () => {
+const SignedOut = props => {
   return (
     <ul className="navbar-nav my-2 my-lg-0">
       <li className="nav-item active">
-        <a className="nav-link" href="#">
+        <a className="nav-link" onClick={props.signIn}>
           Login
         </a>
       </li>

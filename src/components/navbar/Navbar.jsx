@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, withRouter } from "react-router-dom";
 
 import SignedIn from "./SignedIn";
 import SignedOut from "./SignedOut";
@@ -7,6 +7,19 @@ import SignedOut from "./SignedOut";
 class Navbar extends Component {
   state = {
     authenticated: false
+  };
+
+  handleSignIn = () => {
+    this.setState({
+      authenticated: true
+    });
+  };
+
+  handleSignOut = () => {
+    this.setState({
+      authenticated: false
+    });
+    this.props.history.push("/");
   };
 
   render() {
@@ -47,7 +60,11 @@ class Navbar extends Component {
               <button className="btn btn-success ml-2">Create Event</button>
             </li>
           </ul>
-          {authenticated ? <SignedIn /> : <SignedOut />}
+          {authenticated ? (
+            <SignedIn signOut={this.handleSignOut} />
+          ) : (
+            <SignedOut signIn={this.handleSignIn} />
+          )}
         </div>
       </nav>
     );
@@ -59,4 +76,4 @@ const navbarStyle = {
     "linear-gradient(135deg, rgb(24, 42, 115) 0%, rgb(33, 138, 174) 69%, rgb(32, 167, 172) 89%)"
 };
 
-export default Navbar;
+export default withRouter(Navbar);

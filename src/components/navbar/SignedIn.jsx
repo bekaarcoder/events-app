@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const SignedIn = () => {
+const SignedIn = props => {
   return (
     <ul className="navbar-nav my-2 my-lg-0">
       <li className="nav-item dropdown active">
@@ -33,12 +34,12 @@ const SignedIn = () => {
             <i className="fas fa-user-alt mr-2" />
             My Profile
           </a>
-          <a className="dropdown-item" href="#">
+          <Link className="dropdown-item" to="/settings">
             <i className="fas fa-cog mr-2" />
             Settings
-          </a>
+          </Link>
           <div className="dropdown-divider" />
-          <a className="dropdown-item" href="#">
+          <a className="dropdown-item" onClick={props.signOut}>
             <i className="fas fa-sign-out-alt mr-2" />
             Sign Out
           </a>
