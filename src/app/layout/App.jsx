@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import Navbar from "../../components/navbar/Navbar";
 import HomePage from "../../components/home/HomePage";
 import EventDashboard from "../../components/event/EventDashboard";
-import EventDetails from "../../components/event/EventDetails";
+import EventDetails from "../../components/event/EventDetailPage/EventDetails";
 import UserDashboard from "../../components/user/dashboard/UserDashboard";
 import UserDetailPage from "../../components/user/userDetails/UserDetailPage";
 import SettingsDashboard from "../../components/user/settings/SettingsDashboard";

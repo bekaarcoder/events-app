@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import EventListAttendee from "./EventListAttendee";
 
 class EventListItem extends Component {
@@ -39,9 +40,9 @@ class EventListItem extends Component {
           <li className="list-group-item">
             <p>{event.description}</p>
             <div className="text-right">
-              <button className="btn btn-info" onClick={onEventEdit(event)}>
+              <Link className="btn btn-info" to={`/event/${event.id}`}>
                 View Event
-              </button>
+              </Link>
               <button
                 className="btn btn-danger ml-3"
                 onClick={onEventDelete(event.id)}
