@@ -1,6 +1,6 @@
 import React from "react";
 
-const EventDetailHeader = () => {
+const EventDetailHeader = ({ event }) => {
   return (
     <div className="mt-5">
       <div
@@ -18,9 +18,9 @@ const EventDetailHeader = () => {
             style={headerImageStyle}
           />
           <div style={cardImageOverlay}>
-            <h3 className="card-title">Event Title</h3>
-            <p className="card-text">Event Date</p>
-            <p className="card-text lead">Hosted By Hostname</p>
+            <h3 className="card-title">{event.title}</h3>
+            <p className="card-text">{event.city}</p>
+            <p className="card-text lead">Hosted By {event.hostedBy}</p>
           </div>
         </div>
       </div>
