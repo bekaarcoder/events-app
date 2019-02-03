@@ -13,6 +13,7 @@ import EventForm from "../../components/event/EventForm";
 import TestComponent from "../../components/testarea/TestComponent";
 
 import { configureStore } from "../store/configureStore";
+import ScrollToTop from "../common/util/ScrollToTop";
 
 const store = configureStore();
 
@@ -21,31 +22,33 @@ class App extends Component {
     return (
       <Provider store={store}>
         <BrowserRouter>
-          <div>
-            <Switch>
-              <Route path="/" exact component={HomePage} />
-            </Switch>
+          <ScrollToTop>
+            <div>
+              <Switch>
+                <Route path="/" exact component={HomePage} />
+              </Switch>
 
-            <Route
-              path="/(.+)"
-              render={() => (
-                <div>
-                  <Navbar />
-                  <div style={{ paddingTop: "5rem" }}>
-                    <Switch>
-                      <Route path="/events" component={EventDashboard} />
-                      <Route path="/event/:id" component={EventDetails} />
-                      <Route path="/dashboard" component={UserDashboard} />
-                      <Route path="/profile/:id" component={UserDetailPage} />
-                      <Route path="/settings" component={SettingsDashboard} />
-                      <Route path="/createEvent" component={EventForm} />
-                      <Route path="/test" component={TestComponent} />
-                    </Switch>
+              <Route
+                path="/(.+)"
+                render={() => (
+                  <div>
+                    <Navbar />
+                    <div style={{ paddingTop: "5rem" }}>
+                      <Switch>
+                        <Route path="/events" component={EventDashboard} />
+                        <Route path="/event/:id" component={EventDetails} />
+                        <Route path="/dashboard" component={UserDashboard} />
+                        <Route path="/profile/:id" component={UserDetailPage} />
+                        <Route path="/settings" component={SettingsDashboard} />
+                        <Route path="/createEvent" component={EventForm} />
+                        <Route path="/test" component={TestComponent} />
+                      </Switch>
+                    </div>
                   </div>
-                </div>
-              )}
-            />
-          </div>
+                )}
+              />
+            </div>
+          </ScrollToTop>
         </BrowserRouter>
       </Provider>
     );
