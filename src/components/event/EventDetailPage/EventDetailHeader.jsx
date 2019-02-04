@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const EventDetailHeader = ({ event }) => {
   return (
@@ -34,7 +35,9 @@ const EventDetailHeader = ({ event }) => {
         <div className="card-body d-flex">
           <button className="btn btn-secondary">Cancel My Place</button>
           <button className="btn btn-success ml-2">Join This Event</button>
-          <button className="btn btn-danger ml-auto">Manage Event</button>
+          <Link className="btn btn-danger ml-auto" to={`/manage/${event.id}`}>
+            Manage Event
+          </Link>
         </div>
       </div>
     </div>

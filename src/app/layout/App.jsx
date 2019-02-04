@@ -40,7 +40,8 @@ class App extends Component {
                         <Route path="/dashboard" component={UserDashboard} />
                         <Route path="/profile/:id" component={UserDetailPage} />
                         <Route path="/settings" component={SettingsDashboard} />
-                        <Route path="/createEvent" component={EventForm} />
+                        <Route path="/newevent" component={EventForm} />
+                        <Route path="/manage/:id" component={EventForm} />
                         <Route path="/test" component={TestComponent} />
                       </Switch>
                     </div>

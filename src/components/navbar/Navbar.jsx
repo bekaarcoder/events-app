@@ -57,7 +57,9 @@ class Navbar extends Component {
               </NavLink>
             </li>
             <li className="nav-item">
-              <button className="btn btn-success ml-2">Create Event</button>
+              <Link className="btn btn-success ml-2" to="/newevent">
+                Create Event
+              </Link>
             </li>
           </ul>
           {authenticated ? (
