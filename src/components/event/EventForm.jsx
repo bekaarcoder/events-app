@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import cuid from "cuid";
+import { createEvent, updateEvent } from "../../app/actions/eventActions";
 
 class EventForm extends Component {
   state = {
@@ -30,8 +32,17 @@ class EventForm extends Component {
     e.preventDefault();
     if (this.state.event.id) {
       this.props.updateEvent(this.state.event);
+      this.props.history.goBack();
     } else {
-      this.props.createEvent(this.state.event);
+      const newEvent = {
+        ...this.state.event,
+        id: cuid(),
+        description:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sint deserunt, voluptas modi dolor vitae omnis consectetur sed tempora illo qui non maiores delectus expedita. Molestiae aperiam soluta minus magni",
+        hostPhotoUrl: "http://unsplash.it/50/50?gravity=center"
+      };
+      this.props.createEvent(newEvent);
+      this.props.history.push("/events");
     }
   };
 
@@ -45,7 +56,6 @@ class EventForm extends Component {
 
   render() {
     const { event } = this.state;
-    const { handleCancel } = this.props;
     return (
       <div className="container">
         <div className="row justify-content-center">
@@ -113,9 +123,9 @@ class EventForm extends Component {
                     Submit
                   </button>
                   <button
-                    type="cancel"
+                    type="button"
                     className="btn btn-secondary ml-3"
-                    onClick={handleCancel}
+                    onClick={this.props.history.goBack}
                   >
                     Cancel
                   </button>
@@ -150,4 +160,12 @@ const mapStateToProps = (state, ownProps) => {
   return { event };
 };
 
-export default connect(mapStateToProps)(EventForm);
+const actions = {
+  createEvent,
+  updateEvent
+};
+
+export default connect(
+  mapStateToProps,
+  actions
+)(EventForm);
