@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { reduxForm, Field } from "redux-form";
 import cuid from "cuid";
 import { createEvent, updateEvent } from "../../app/actions/eventActions";
+import TextInput from "../../app/common/form/TextInput";
 
 class EventForm extends Component {
   state = {
@@ -64,7 +66,7 @@ class EventForm extends Component {
               <div className="card-body">
                 <h3 className="text-center mb-3">Create Your Event</h3>
                 <form onSubmit={this.formSubmit}>
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <label>Event Title</label>
                     <input
                       type="text"
@@ -73,8 +75,15 @@ class EventForm extends Component {
                       name="title"
                       value={event.title}
                       onChange={this.onChange}
-                    />
-                  </div>
+                    /> 
+                  </div> */}
+                  <Field
+                    name="title"
+                    label="Event Title"
+                    type="text"
+                    placeholder="Event Title"
+                    component={TextInput}
+                  />
                   <div className="form-group">
                     <label>Event Date</label>
                     <input
@@ -168,4 +177,4 @@ const actions = {
 export default connect(
   mapStateToProps,
   actions
-)(EventForm);
+)(reduxForm({ form: "eventForm" })(EventForm));
