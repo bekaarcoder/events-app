@@ -6,10 +6,6 @@ import { createEvent, updateEvent } from "../../app/actions/eventActions";
 import TextInput from "../../app/common/form/TextInput";
 
 class EventForm extends Component {
-  state = {
-    event: Object.assign({}, this.props.event)
-  };
-
   /*   componentDidMount() {
     if (this.props.selectedEvent !== null) {
       this.setState({
@@ -48,96 +44,72 @@ class EventForm extends Component {
     }
   };
 
-  onChange = e => {
-    const newEvent = this.state.event;
-    newEvent[e.target.name] = e.target.value;
-    this.setState({
-      event: newEvent
-    });
-  };
-
   render() {
-    const { event } = this.state;
     return (
-      <div className="container">
+      <div className="container mb-5">
         <div className="row justify-content-center">
           <div className="col-md-10">
             <div className="card mt-3" style={cardStyle}>
               <div className="card-body">
                 <h3 className="text-center mb-3">Create Your Event</h3>
                 <form onSubmit={this.formSubmit}>
-                  {/* <div className="form-group">
-                    <label>Event Title</label>
-                    <input
-                      type="text"
-                      placeholder="Event Title"
-                      className="form-control"
-                      name="title"
-                      value={event.title}
-                      onChange={this.onChange}
-                    /> 
-                  </div> */}
+                  <h3 className="lead text-info">EVENT DETAILS</h3>
                   <Field
                     name="title"
                     label="Event Title"
                     type="text"
-                    placeholder="Event Title"
+                    placeholder="Give your event a name"
                     component={TextInput}
                   />
-                  <div className="form-group">
-                    <label>Event Date</label>
-                    <input
-                      type="date"
-                      placeholder="Event Title"
-                      className="form-control"
-                      name="date"
-                      value={event.date}
-                      onChange={this.onChange}
-                    />
+                  <Field
+                    name="category"
+                    label="Event Category"
+                    type="text"
+                    placeholder="What is your event about"
+                    component={TextInput}
+                  />
+                  <Field
+                    name="description"
+                    label="Event Description"
+                    type="text"
+                    placeholder="Describe your event"
+                    component={TextInput}
+                  />
+                  <hr />
+                  <h2 className="lead text-info">EVENT LOCATION DETAILS</h2>
+                  <Field
+                    name="city"
+                    label="Event City"
+                    type="text"
+                    placeholder="Event City"
+                    component={TextInput}
+                  />
+                  <Field
+                    name="venue"
+                    label="Event Venue"
+                    type="text"
+                    placeholder="Event Venue"
+                    component={TextInput}
+                  />
+                  <Field
+                    name="date"
+                    label="Event Date"
+                    type="text"
+                    placeholder="Event Date"
+                    component={TextInput}
+                  />
+                  <div className="d-flex justify-content-between mt-5">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={this.props.history.goBack}
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn btn-success">
+                      Submit
+                    </button>
                   </div>
-                  <div className="form-group">
-                    <label>City</label>
-                    <input
-                      type="text"
-                      placeholder="City event is taking place"
-                      className="form-control"
-                      name="city"
-                      value={event.city}
-                      onChange={this.onChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Venue</label>
-                    <input
-                      type="text"
-                      placeholder="Enter the venue of the event"
-                      className="form-control"
-                      name="venue"
-                      value={event.venue}
-                      onChange={this.onChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Hosted By</label>
-                    <input
-                      type="text"
-                      placeholder="Name of the person hosting"
-                      className="form-control"
-                      name="hostedBy"
-                      value={event.hostedBy}
-                      onChange={this.onChange}
-                    />
-                  </div>
-                  <button type="submit" className="btn btn-success">
-                    Submit
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary ml-3"
-                    onClick={this.props.history.goBack}
-                  >
-                    Cancel
-                  </button>
                 </form>
               </div>
             </div>
