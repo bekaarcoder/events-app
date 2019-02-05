@@ -4,6 +4,16 @@ import { reduxForm, Field } from "redux-form";
 import cuid from "cuid";
 import { createEvent, updateEvent } from "../../app/actions/eventActions";
 import TextInput from "../../app/common/form/TextInput";
+import TextArea from "../../app/common/form/TextArea";
+import SelectInput from "../../app/common/form/SelectInput";
+
+const category = [
+  { key: "drinks", text: "Drinks", value: "drinks" },
+  { key: "culture", text: "Culture", value: "culture" },
+  { key: "food", text: "Food", value: "food" },
+  { key: "music", text: "Music", value: "music" },
+  { key: "travel", text: "Travel", value: "travel" }
+];
 
 class EventForm extends Component {
   /*   componentDidMount() {
@@ -66,14 +76,16 @@ class EventForm extends Component {
                     label="Event Category"
                     type="text"
                     placeholder="What is your event about"
-                    component={TextInput}
+                    options={category}
+                    component={SelectInput}
                   />
                   <Field
                     name="description"
                     label="Event Description"
                     type="text"
                     placeholder="Describe your event"
-                    component={TextInput}
+                    rows="3"
+                    component={TextArea}
                   />
                   <hr />
                   <h2 className="lead text-info">EVENT LOCATION DETAILS</h2>
