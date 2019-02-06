@@ -36,18 +36,16 @@ class EventForm extends Component {
     return null;
   } */
 
-  formSubmit = e => {
-    e.preventDefault();
-    if (this.state.event.id) {
-      this.props.updateEvent(this.state.event);
+  onFormSubmit = values => {
+    if (this.props.initialValues.id) {
+      this.props.updateEvent(values);
       this.props.history.goBack();
     } else {
       const newEvent = {
-        ...this.state.event,
+        ...values,
         id: cuid(),
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sint deserunt, voluptas modi dolor vitae omnis consectetur sed tempora illo qui non maiores delectus expedita. Molestiae aperiam soluta minus magni",
-        hostPhotoUrl: "http://unsplash.it/50/50?gravity=center"
+        hostPhotoUrl: "http://unsplash.it/50/50?gravity=center",
+        hostedBy: "Jane"
       };
       this.props.createEvent(newEvent);
       this.props.history.push("/events");
@@ -55,6 +53,7 @@ class EventForm extends Component {
   };
 
   render() {
+    const { handleSubmit } = this.props;
     return (
       <div className="container mb-5">
         <div className="row justify-content-center">
@@ -62,7 +61,7 @@ class EventForm extends Component {
             <div className="card mt-3" style={cardStyle}>
               <div className="card-body">
                 <h3 className="text-center mb-3">Create Your Event</h3>
-                <form onSubmit={this.formSubmit}>
+                <form onSubmit={handleSubmit(this.onFormSubmit)}>
                   <h3 className="lead text-info">EVENT DETAILS</h3>
                   <Field
                     name="title"
@@ -138,19 +137,13 @@ const cardStyle = {
 
 const mapStateToProps = (state, ownProps) => {
   const eventId = ownProps.match.params.id;
-  let event = {
-    title: "",
-    date: "",
-    city: "",
-    venue: "",
-    hostedBy: ""
-  };
+  let event = {};
 
   if (eventId && state.events.length > 0) {
     event = state.events.filter(event => event.id.toString() === eventId)[0];
   }
 
-  return { event };
+  return { initialValues: event };
 };
 
 const actions = {
@@ -161,4 +154,4 @@ const actions = {
 export default connect(
   mapStateToProps,
   actions
-)(reduxForm({ form: "eventForm" })(EventForm));
+)(reduxForm({ form: "eventForm", enableReinitialize: true })(EventForm));
