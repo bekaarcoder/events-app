@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
+import {
+  composeValidators,
+  combineValidators,
+  isRequired,
+  hasLengthGreaterThan
+} from "revalidate";
 import cuid from "cuid";
 import { createEvent, updateEvent } from "../../app/actions/eventActions";
 import TextInput from "../../app/common/form/TextInput";
@@ -14,6 +20,19 @@ const category = [
   { key: "music", text: "Music", value: "music" },
   { key: "travel", text: "Travel", value: "travel" }
 ];
+
+const validate = combineValidators({
+  title: isRequired({ message: "Event title is required." }),
+  category: isRequired({ message: "Please choose a category for the event." }),
+  description: composeValidators(
+    isRequired({ message: "Please enter description for the event." }),
+    hasLengthGreaterThan(5)({
+      message: "Description should not be less than 5 characters."
+    })
+  )(),
+  city: isRequired("city"),
+  venue: isRequired("venue")
+});
 
 class EventForm extends Component {
   /*   componentDidMount() {
@@ -53,7 +72,7 @@ class EventForm extends Component {
   };
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, invalid, submitting, pristine } = this.props;
     return (
       <div className="container mb-5">
         <div className="row justify-content-center">
@@ -117,7 +136,11 @@ class EventForm extends Component {
                     >
                       Cancel
                     </button>
-                    <button type="submit" className="btn btn-success">
+                    <button
+                      type="submit"
+                      className="btn btn-success"
+                      disabled={invalid || submitting || pristine}
+                    >
                       Submit
                     </button>
                   </div>
@@ -154,4 +177,8 @@ const actions = {
 export default connect(
   mapStateToProps,
   actions
-)(reduxForm({ form: "eventForm", enableReinitialize: true })(EventForm));
+)(
+  reduxForm({ form: "eventForm", enableReinitialize: true, validate })(
+    EventForm
+  )
+);
