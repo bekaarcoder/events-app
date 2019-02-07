@@ -7,6 +7,7 @@ const SelectInput = ({
   label,
   meta: { touched, error }
 }) => {
+  console.log(touched, error);
   return (
     <div className="form-group">
       <label>{label}</label>

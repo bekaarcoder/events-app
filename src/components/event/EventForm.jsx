@@ -12,6 +12,7 @@ import { createEvent, updateEvent } from "../../app/actions/eventActions";
 import TextInput from "../../app/common/form/TextInput";
 import TextArea from "../../app/common/form/TextArea";
 import SelectInput from "../../app/common/form/SelectInput";
+import DateInput from "../../app/common/form/DateInput";
 
 const category = [
   { key: "drinks", text: "Drinks", value: "drinks" },
@@ -31,7 +32,8 @@ const validate = combineValidators({
     })
   )(),
   city: isRequired("city"),
-  venue: isRequired("venue")
+  venue: isRequired("venue"),
+  date: isRequired({ message: "Event Date is required" })
 });
 
 class EventForm extends Component {
@@ -125,8 +127,12 @@ class EventForm extends Component {
                     name="date"
                     label="Event Date"
                     type="text"
-                    placeholder="Event Date"
-                    component={TextInput}
+                    placeholder="Event Date and Time"
+                    component={DateInput}
+                    dateFormat="YYYY/MM/DD HH:mm"
+                    timeFormat="HH:mm"
+                    showTimeSelect
+                    width="100%"
                   />
                   <div className="d-flex justify-content-between mt-5">
                     <button
