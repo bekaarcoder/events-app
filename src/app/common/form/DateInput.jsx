@@ -1,6 +1,6 @@
 import React from "react";
 import DatePicker from "react-datepicker";
-import moment from "moment";
+// import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 
 const DateInput = ({
@@ -11,6 +11,7 @@ const DateInput = ({
   meta: { touched, error },
   ...rest
 }) => {
+  console.log(value);
   return (
     <div className="form-group">
       <label>{label}</label>
@@ -18,7 +19,7 @@ const DateInput = ({
         <DatePicker
           {...rest}
           placeholderText={placeholder}
-          selected={value ? value : null}
+          selected={value !== "" ? new Date(value) : null}
           onChange={onChange}
           className={
             "d-block form-control " + (touched && error && "is-invalid")

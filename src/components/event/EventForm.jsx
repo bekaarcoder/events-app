@@ -129,9 +129,6 @@ class EventForm extends Component {
                     type="text"
                     placeholder="Event Date and Time"
                     component={DateInput}
-                    dateFormat="YYYY/MM/DD HH:mm"
-                    timeFormat="HH:mm"
-                    showTimeSelect
                     width="100%"
                   />
                   <div className="d-flex justify-content-between mt-5">
