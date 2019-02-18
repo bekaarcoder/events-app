@@ -11,6 +11,10 @@ const initialState = [
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti consequatur maiores, sed officia vel sint, similique explicabo dolore mollitia beatae accusamus harum voluptatum veritatis debitis, velit suscipit fugit. Similique, accusamus.",
     city: "UK, London",
     venue: "Tower of London",
+    venueLatLng: {
+      lat: 51.5014,
+      lng: 0.1419
+    },
     hostedBy: "Bob",
     hostPhotoUrl: "http://unsplash.it/50/50?gravity=center",
     attendees: [
@@ -35,6 +39,10 @@ const initialState = [
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti consequatur maiores, sed officia vel sint, similique explicabo dolore mollitia beatae accusamus harum voluptatum veritatis debitis, velit suscipit fugit. Similique, accusamus.",
     city: "Sydney, Australia",
     venue: "Tower of Sydney, Australia",
+    venueLatLng: {
+      lat: 51.4839,
+      lng: 0.6044
+    },
     hostedBy: "Joe",
     hostPhotoUrl: "http://unsplash.it/50/50?gravity=center",
     attendees: [
