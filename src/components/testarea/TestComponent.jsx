@@ -1,28 +1,36 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import GoogleMapReact from "google-map-react";
+import { openModal, closeModal } from "../modals/modalActions";
 
-const Marker = () => <i className="fas fa-map-marker-alt text-danger fa-2x" />;
+import ModalContainer from "../modals/ModalContainer";
 
 class TestComponent extends Component {
-  static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33
-    },
-    zoom: 11
+  constructor(props) {
+    super(props);
+    this.modalContainerElement = React.createRef();
+  }
+
+  showModal = () => {
+    console.log("Open Modal");
+    // this.modalContainerElement.current.openModal();
+    this.props.openModal(
+      "simpleModal",
+      {
+        modalIsOpen: true,
+        title: "Simple Modal"
+      },
+      true
+    );
   };
 
   render() {
     return (
-      <div style={{ height: "300px", width: "100%" }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyCpG6LIJ9NycCS_8YGtZIpRsRIQ0b80UCo" }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          <Marker lat={59.955413} lng={30.337844} text="My Marker" />
-        </GoogleMapReact>
+      <div>
+        <button className="btn btn-primary" onClick={this.showModal}>
+          Show Modal
+        </button>
+        {/* <ModalContainer ref={this.modalContainerElement} /> */}
+        <ModalContainer />
       </div>
     );
   }
@@ -30,5 +38,5 @@ class TestComponent extends Component {
 
 export default connect(
   null,
-  {}
+  { openModal, closeModal }
 )(TestComponent);
