@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { NavLink, Link, withRouter } from "react-router-dom";
-
+import { connect } from "react-redux";
 import SignedIn from "./SignedIn";
 import SignedOut from "./SignedOut";
+
+import { openModal, closeModal } from "../modals/modalActions";
+import ModalContainer from "../modals/ModalContainer";
 
 class Navbar extends Component {
   state = {
@@ -10,9 +13,13 @@ class Navbar extends Component {
   };
 
   handleSignIn = () => {
-    this.setState({
-      authenticated: true
-    });
+    console.log("Show Login Modal");
+    this.props.openModal("loginModal", { title: "Login To Happenings" }, true);
+  };
+
+  handleRegister = () => {
+    console.log("Show Registration Modal");
+    this.props.openModal("registerModal", { title: "Join Happenings" }, true);
   };
 
   handleSignOut = () => {
@@ -65,9 +72,13 @@ class Navbar extends Component {
           {authenticated ? (
             <SignedIn signOut={this.handleSignOut} />
           ) : (
-            <SignedOut signIn={this.handleSignIn} />
+            <SignedOut
+              signIn={this.handleSignIn}
+              register={this.handleRegister}
+            />
           )}
         </div>
+        <ModalContainer />
       </nav>
     );
   }
@@ -78,4 +89,9 @@ const navbarStyle = {
     "linear-gradient(135deg, rgb(24, 42, 115) 0%, rgb(33, 138, 174) 69%, rgb(32, 167, 172) 89%)"
 };
 
-export default withRouter(Navbar);
+export default withRouter(
+  connect(
+    null,
+    { openModal, closeModal }
+  )(Navbar)
+);

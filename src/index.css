@@ -45,15 +45,16 @@ code {
 }
 
 .ReactModal__Content {
-  top: 20% !important;
+  top: 40% !important;
   transition: top 500ms ease-in-out;
   padding: 0px !important;
+  width: 400px !important;
 }
 
 .ReactModal__Content--after-open {
-  top: 30% !important;
+  top: 50% !important;
 }
 
 .ReactModal__Content--before-close {
-  top: 20% !important;
+  top: 40% !important;
 }

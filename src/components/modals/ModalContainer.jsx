@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import Modal from "react-modal";
 
 import TestModal from "./TestModal";
+import LoginModal from "./LoginModal";
+import RegisterModal from "./RegisterModal";
 import { closeModal } from "../modals/modalActions";
 
 Modal.setAppElement(document.getElementById("root"));
@@ -13,6 +15,7 @@ class ModalContainer extends Component {
   };
 
   hideModal = () => {
+    console.log(this.props.modal.modalType);
     this.props.closeModal();
     this.setState({
       modalIsOpen: false
@@ -38,6 +41,10 @@ class ModalContainer extends Component {
 
   render() {
     console.log(this.props.modal);
+    const { modalProps, modalType } = this.props.modal;
+    if (!modalType) {
+      return null;
+    }
     return (
       <div>
         <Modal
@@ -47,7 +54,14 @@ class ModalContainer extends Component {
           style={customStyles}
           closeTimeoutMS={500}
         >
-          <TestModal hideModal={this.hideModal} />
+          {modalType && modalType === "loginModal" ? (
+            <LoginModal hideModal={this.hideModal} title={modalProps.title} />
+          ) : (
+            <RegisterModal
+              hideModal={this.hideModal}
+              title={modalProps.title}
+            />
+          )}
         </Modal>
       </div>
     );
