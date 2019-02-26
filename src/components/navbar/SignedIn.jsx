@@ -12,7 +12,7 @@ const SignedIn = props => {
             className="mr-1 rounded-circle"
             style={{ width: "30px" }}
           />
-          Username
+          {props.currentUser}
         </a>
         <div
           className="dropdown-menu dropdown-menu-right"

@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
 import TextInput from "../../app/common/form/TextInput";
+import { login } from "../../app/actions/authActions";
 
 class LoginForm extends Component {
   render() {
+    const { handleSubmit, login } = this.props;
     return (
-      <form>
+      <form onSubmit={handleSubmit(login)}>
         <Field
           name="email"
           label="Email Address"
@@ -31,4 +34,7 @@ class LoginForm extends Component {
   }
 }
 
-export default reduxForm({ form: "loginForm" })(LoginForm);
+export default connect(
+  null,
+  { login }
+)(reduxForm({ form: "loginForm" })(LoginForm));

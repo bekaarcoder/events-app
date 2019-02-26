@@ -7,11 +7,9 @@ import SignedOut from "./SignedOut";
 import { openModal, closeModal } from "../modals/modalActions";
 import ModalContainer from "../modals/ModalContainer";
 
-class Navbar extends Component {
-  state = {
-    authenticated: false
-  };
+import { signout } from "../../app/actions/authActions";
 
+class Navbar extends Component {
   handleSignIn = () => {
     console.log("Show Login Modal");
     this.props.openModal("loginModal", { title: "Login To Happenings" }, true);
@@ -23,14 +21,13 @@ class Navbar extends Component {
   };
 
   handleSignOut = () => {
-    this.setState({
-      authenticated: false
-    });
+    this.props.signout();
     this.props.history.push("/");
   };
 
   render() {
-    const { authenticated } = this.state;
+    const { auth } = this.props;
+    const authenticated = auth.authenticated;
     return (
       <nav
         className="navbar fixed-top navbar-expand-lg navbar-dark"
@@ -70,7 +67,10 @@ class Navbar extends Component {
             </li>
           </ul>
           {authenticated ? (
-            <SignedIn signOut={this.handleSignOut} />
+            <SignedIn
+              signOut={this.handleSignOut}
+              currentUser={auth.currentUser}
+            />
           ) : (
             <SignedOut
               signIn={this.handleSignIn}
@@ -89,9 +89,13 @@ const navbarStyle = {
     "linear-gradient(135deg, rgb(24, 42, 115) 0%, rgb(33, 138, 174) 69%, rgb(32, 167, 172) 89%)"
 };
 
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
 export default withRouter(
   connect(
-    null,
-    { openModal, closeModal }
+    mapStateToProps,
+    { openModal, closeModal, signout }
   )(Navbar)
 );
